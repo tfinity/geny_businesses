@@ -29,7 +29,7 @@ class Business {
   }
 
   /// Normalization from messy JSON keys
-  factory Business.fromJson(Map<String, dynamic> json) {
+  factory Business.fromMessyJson(Map<String, dynamic> json) {
     final rawName = (json['biz_name'] ?? '').toString().trim();
     final rawLocation = (json['bss_location'] ?? '').toString().trim();
     final rawContact = (json['contct_no'] ?? '').toString().trim();
@@ -46,8 +46,22 @@ class Business {
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'biz_name': name,
-    'bss_location': location,
-    'contct_no': contactNumber,
+    'name': name,
+    'location': location,
+    'contactNumber': contactNumber,
   };
+
+  factory Business.fromJson(Map<String, dynamic> json) => Business(
+    id: json['id'] ?? '',
+    name: json['name'] ?? '',
+    location: json['location'] ?? '',
+    contactNumber: json['contactNumber'] ?? '',
+  );
+
+  static List<Business> listFromMessyJson(List<dynamic> arr) {
+    return arr
+        .whereType<Map<String, dynamic>>()
+        .map((m) => Business.fromMessyJson(m))
+        .toList(growable: false);
+  }
 }
