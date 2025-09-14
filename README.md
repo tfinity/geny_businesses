@@ -1,16 +1,60 @@
-# geny_businesses
+# Geny Flutter Mini App
 
-A new Flutter project.
+A simple Flutter mini-app built as part of the Geny pre-qualification test.  
+Displays a list of businesses with search, detail screens, offline caching, and error/retry handling.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+- Provider-based state management
+- Dio for networking (even with local JSON)
+- Offline persistence using SharedPreferences
+- Search functionality
+- Business detail screen
+- Clear loading, empty, and error states with retry
+- Reusable `BusinessCard<T>` widget (composition/generics)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📂 Project Structure
+
+- lib/
+- models/ # Domain models
+- repository/ # Data layer (Dio + cache)
+- providers/ # App state (Provider)
+- screens/ # UI screens (list, detail)
+- widgets/ # Reusable widgets
+- main.dart # Entry point
+- assets/
+- data/businesses.json # Local mock data
+
+
+---
+
+## 💾 Offline Behavior
+
+- First load: fetches from local JSON via Dio and saves to SharedPreferences
+- Next launches: loads cached data instantly (offline support)
+- Use `forceNetwork = true` on retry to bypass cache
+
+---
+
+## ⚙️ Setup
+
+1. Clone the repository  
+2. Run `flutter pub get`  
+3. Run with `flutter run`
+
+---
+
+## 📑 Notes
+
+See [`TECH_NOTES.md`](TECH_NOTES.md) for architecture overview, design decisions, and improvement plans.
+
+---
+
+## 🧑 Author
+
+**Muhammad Talha Riaz (@tfinity)**  
+Email: talhariaz.dev@gmail.com
