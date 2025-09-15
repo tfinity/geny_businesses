@@ -16,6 +16,13 @@ class BusinessRepository {
   static const int _baseDelayMs = 300;
 
   Future<List<Business>> fetchBusinesses({bool forceNetwork = false}) async {
+    // If we are not forcing network call, we can try looking into cache
+    if (!forceNetwork) {
+      final cached = await _loadFromCache();
+      if (cached.isNotEmpty) return cached;
+    }
+    // else continue with normal execution
+
     // Cancel previous if active
     _activeCancelToken?.cancel('new request started');
     final cancelToken = CancelToken();
